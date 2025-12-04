@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTTP Server Test Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        .info {
+            background-color: #e8f4f8;
+            padding: 10px;
+            border-left: 4px solid #0088cc;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 HTTP Server is Running!</h1>
+        <p>Welcome to the Java HTTP Server for CSE 322 Computer Networking Lab.</p>
+        
+        <div class="info">
+            <strong>Server Status:</strong> Online ✅
+            <br><strong>Port:</strong> 56666
+            <br><strong>Time:</strong> <span id="time"></span>
+        </div>
+        
+        <h2>About this Server</h2>
+        <p>This is a basic HTTP server implementation in Java demonstrating:</p>
+        <ul>
+            <li>Socket programming basics</li>
+            <li>HTTP protocol handling</li>
+            <li>Client-server communication</li>
+            <li>File serving capabilities</li>
+        </ul>
+        
+        <h2>Features</h2>
+        <ul>
+            <li>Listens on port 56666</li>
+            <li>Handles HTTP GET requests</li>
+            <li>Serves HTML content</li>
+            <li>Multi-client capable</li>
+        </ul>
+
+        <hr>
+        <p><small>CSE 322 - Computer Networking Lab Assignment 1</small></p>
+    </div>
+
+    <script>
+        document.getElementById('time').textContent = new Date().toLocaleString();
+    </script>
+</body>
+</html>
