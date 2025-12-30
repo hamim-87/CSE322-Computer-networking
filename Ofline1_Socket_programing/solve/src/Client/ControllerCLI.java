@@ -6,6 +6,7 @@ import Utils.Request;
 import Utils.Response;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -172,9 +173,7 @@ public class ControllerCLI implements Runnable{
                 }catch (Exception e){
                     System.out.println(e);
                 }
-            }
-
-            else{
+            }else{
                 String[] parts = input.split(" ");
                 if(parts[0].equals("scp")){
                     File file = new File(parts[1]);
@@ -206,6 +205,30 @@ public class ControllerCLI implements Runnable{
                             throw new RuntimeException(e);
                         }
                     }
+                }else if(parts[0].equalsIgnoreCase("download")){
+
+                    Request request = new Request("download", parts[1]);
+
+
+                    try {
+                        networkUtils.write(request);
+
+                        Response res = (Response) networkUtils.read();
+
+
+                        if(res.getCode().equals("SUCCESS")){
+                            new RecieveFile(res.getPayload(),dataNet, Paths.get(res.getPayload()).getFileName().toString());
+                            System.out.println("downloading in background...");
+                        }else{
+                            System.out.println(res.getPayload());
+                        }
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+
+
+                    
+
                 }
             }
     }

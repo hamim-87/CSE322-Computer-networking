@@ -29,6 +29,7 @@ public class HandleConnection implements Runnable{
         this.commands.put("scp", new UploadTask(networkUtils,server));
         this.commands.put("find", new ShowFilesTask(networkUtils,server));
         this.commands.put("ls", new OwnFileTask(networkUtils,server));
+        this.commands.put("download",new DownloadTask(networkUtils,server));
 
         this.thread = new Thread(this);
 

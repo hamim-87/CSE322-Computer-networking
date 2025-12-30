@@ -11,6 +11,10 @@ public class Response implements Serializable {
 
 
     private String payload;
+
+    private Map<String, Object> loads;
+
+
     public Response(String code, String payload) {
         this.code = code;
         this.payload = payload;
@@ -23,6 +27,7 @@ public class Response implements Serializable {
     public String getPayload() {
         return payload;
     }
+    public Map<String,Object> getLoads() { return loads;}
 
     public Map<Long, List<String>> files;
 
@@ -41,6 +46,12 @@ public class Response implements Serializable {
                 }
             }
         }
+    }
+
+    public Response(String header, byte[] fileChunk){
+        this.code = header;
+        this.loads = new HashMap<>();
+        this.loads.put("chunk", fileChunk);
     }
 
     public Response(String code, Map<Long, List<String>> files,String name) {

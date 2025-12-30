@@ -5,6 +5,7 @@ import Utils.Request;
 import Utils.Response;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.Socket;
@@ -75,10 +76,43 @@ public class HandleData implements Runnable{
 
 
 
-
                     }catch (Exception e){
                         System.out.println(e);
                     }
+                }else if(request.getHeader().equalsIgnoreCase("download")){
+
+                    String pat =(String) request.getPayload().get("body");
+                    File file = new File(pat);
+
+                    int rem = (int) file.length();
+                    FileInputStream fs = new FileInputStream(file);
+
+                    while(rem>0){
+                        byte[] chunk = new byte[Math.min((int)this.server.MAX_CHUNK_SIZE,rem)];
+                        try {
+                            fs.read(chunk);
+                            rem -= chunk.length;
+
+                            Response res = new Response("continue", chunk);
+                            try{
+                                this.dataNetworkUtils.write(res);
+
+
+
+                            }catch (Exception e){
+                                System.out.println(e);
+                            }
+
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                    }
+                    String fileName = Paths.get(pat).getFileName().toString();
+                    System.out.println(fileName);
+                    Response rq = new Response("finished",fileName);
+
+                    this.dataNetworkUtils.write(rq);
                 }
 
 
