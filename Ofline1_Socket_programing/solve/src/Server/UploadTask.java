@@ -1,5 +1,6 @@
 package Server;
 
+import Utils.Log;
 import Utils.NetworkUtils;
 import Utils.Request;
 import Utils.Response;
@@ -30,6 +31,8 @@ public class UploadTask implements Task{
                 String fileName = (String) req.getPayload().get("filename");
                 String privacy = (String)  req.getPayload().get("privacy");
                 String username = (String) req.getPayload().get("username");
+
+                Log.log(username,"Download",fileName);
 
                 server.fileMeta.put(fileId,new ArrayList<>());
                 server.fileMeta.get(fileId).add(fileName);

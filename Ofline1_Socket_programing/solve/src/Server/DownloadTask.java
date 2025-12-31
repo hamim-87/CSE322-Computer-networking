@@ -3,6 +3,7 @@ package Server;
 import Utils.NetworkUtils;
 import Utils.Request;
 import Utils.Response;
+import Utils.Log;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -37,6 +38,8 @@ public class DownloadTask implements Task{
             String fileName = metadata.get(0);
             String privacy = metadata.get(1);
             String user = metadata.get(2);
+
+            Log.log(user,"download",fileName);
 
             String filePath = Paths.get("src/Server/Storage", user, privacy, fileName).toString();
             response = new Response("SUCCESS",filePath);
