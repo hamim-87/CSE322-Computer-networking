@@ -14,6 +14,8 @@ public class Response implements Serializable {
 
     private Map<String, Object> loads;
 
+    public List<FileRequestInfo> info;
+
 
     public Response(String code, String payload) {
         this.code = code;
@@ -30,6 +32,11 @@ public class Response implements Serializable {
     public Map<String,Object> getLoads() { return loads;}
 
     public Map<Long, List<String>> files;
+
+    public Response(String code, List<FileRequestInfo> info){
+        this.code = code;
+        this.info = info;
+    }
 
     public Response(String code, Map<Long, List<String>> files) {
         this.code = code;
@@ -70,4 +77,6 @@ public class Response implements Serializable {
             }
         }
     }
+
+
 }

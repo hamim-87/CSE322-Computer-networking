@@ -1,11 +1,9 @@
 package Client;
 
-import Utils.FileInfo;
-import Utils.NetworkUtils;
-import Utils.Request;
-import Utils.Response;
+import Utils.*;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
@@ -173,6 +171,32 @@ public class ControllerCLI implements Runnable{
                 }catch (Exception e){
                     System.out.println(e);
                 }
+            }else if(input.equalsIgnoreCase("show")){
+                Request req = new Request("show",terminal.getUser());
+                try{
+                    networkUtils.write(req);
+
+                    Response res = (Response) networkUtils.read();
+
+                    if(res.getCode().equals("SUCCESS")){
+                        List<FileRequestInfo> info = res.info;
+
+
+                        System.out.println("RequestID | Sender | Description");
+
+                        if(info != null){
+                            for(FileRequestInfo fo: info){
+                                System.out.println(fo.requestId+" "+fo.sender+" "+fo.description);
+                            }
+                        }
+
+
+                    }
+
+
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }else{
                 String[] parts = input.split(" ");
                 if(parts[0].equals("scp")){
@@ -227,7 +251,18 @@ public class ControllerCLI implements Runnable{
                     }
 
 
-                    
+
+
+                }else if(parts[0].equalsIgnoreCase("req")) {
+
+                    Request req = new Request("req",parts[1],parts[2],terminal.getUser());
+
+                    try{
+                        networkUtils.write(req);
+
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
 
                 }
             }

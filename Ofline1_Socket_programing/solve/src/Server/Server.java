@@ -1,5 +1,6 @@
 package Server;
 
+import Utils.FileRequestInfo;
 import Utils.NetworkUtils;
 
 import java.io.IOException;
@@ -16,6 +17,9 @@ public class Server {
     public HashMap<String,NetworkUtils> dataConnections = new HashMap<>();
     // id-> filename,privacy,username
     public Map<Long, List<String>> fileMeta = new HashMap<>();
+    public HashMap<String, List<FileRequestInfo>> requestInfo = new HashMap<>();
+    public List<String> Users = new ArrayList<>();
+
 
 
     public long MAX_BUFFER_SIZE = 11111;
@@ -23,6 +27,7 @@ public class Server {
     public long MAX_CHUNK_SIZE = 150;
     public long current_buffer_size = 0;
     public long fileIDCount = 0;
+    public long reqId = 0;
 
     public static void main(String[] args) throws IOException{
         int PORT = 6666;
@@ -53,4 +58,13 @@ public class Server {
         userConnections.put(user,networkUtils);
     }
 
+    public void addUsers(String user) {
+        Users.add(user);
+    }
+
+    public List<String> getUsers(){ return Users;}
+
+    public void addRequestInfo(String user,FileRequestInfo info){
+        requestInfo.get(user).add(info);
+    }
 }

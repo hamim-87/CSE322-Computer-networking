@@ -10,11 +10,13 @@ public class SignupTask implements Task{
     private  UserDB userDB;
     private Response res;
     private NetworkUtils networkUtils;
+    private Server server;
 
 
-    public SignupTask(NetworkUtils networkUtils){
+    public SignupTask(NetworkUtils networkUtils,Server server){
         this.userDB = new UserDB();
         this.networkUtils = networkUtils;
+        this.server = server;
     }
 
     public void execute(Request req) {
@@ -36,6 +38,7 @@ public class SignupTask implements Task{
             try{
                 if(userDB.getUser(username) == null){
                     userDB.setUser(username,password);
+                    server.addUsers(username);
                     this.res = new Response("SUCCESS",username+" is created.");
                 }else{
                     this.res = new Response("FAIL","User already exist");

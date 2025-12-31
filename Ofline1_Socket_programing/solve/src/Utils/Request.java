@@ -20,6 +20,14 @@ public class Request implements Serializable {
         this.payload.put("username",username);
         this.payload.put("body",body);
     }
+
+    public Request(String header, String username,String body,String sender){
+        this.header = header;
+        this.payload = new HashMap<>();
+        this.payload.put("username",username);
+        this.payload.put("body",body);
+        this.payload.put("sender",sender);
+    }
     public Request(String header, String fileName,long fileSize,String privacy,String username){
         this.header = header;
         this.payload = new HashMap<>();

@@ -22,7 +22,7 @@ public class HandleConnection implements Runnable{
         this.server = server;
 
         this.commands = new HashMap<>();
-        this.commands.put("signup",new SignupTask(networkUtils));
+        this.commands.put("signup",new SignupTask(networkUtils,server));
         this.commands.put("login",new LoginTask(networkUtils,server));
         this.commands.put("who", new WhoTask(networkUtils));
         this.commands.put("logout",new LogoutTask(networkUtils));
@@ -30,6 +30,8 @@ public class HandleConnection implements Runnable{
         this.commands.put("find", new ShowFilesTask(networkUtils,server));
         this.commands.put("ls", new OwnFileTask(networkUtils,server));
         this.commands.put("download",new DownloadTask(networkUtils,server));
+        this.commands.put("req",new RequestTask(networkUtils,server));
+        this.commands.put("show",new ShowTask(networkUtils,server));
 
         this.thread = new Thread(this);
 
